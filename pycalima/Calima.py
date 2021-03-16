@@ -176,15 +176,15 @@ class Calima:
 
     def getMode(self):
         v = unpack('<B', self._readUUID(CHARACTERISTIC_MODE))
-        if v == 0:
+        if v[0] == 0:
             return "MultiMode"
-        elif v == 1:
+        elif v[0] == 1:
             return "DraftShutterMode"
-        elif v == 2:
+        elif v[0] == 2:
             return "WallSwitchExtendedRuntimeMode"
-        elif v == 3:
+        elif v[0] == 3:
             return "WallSwitchNoExtendedRuntimeMode"
-        elif v == 4:
+        elif v[0] == 4:
             return "HeatDistributionMode"
 
     def setFanSpeedSettings(self, humidity=2250, light=1625, trickle=1000):
