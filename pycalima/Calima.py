@@ -226,6 +226,13 @@ class Calima:
     def getHeatDistributor(self):
         return HeatDistributorSettings._make(unpack('<BHH', self._readUUID(CHARACTERISTIC_TEMP_HEAT_DISTRIBUTOR)))
 
+    def setHeatDistributor(self, TemperatureLimit, FanSpeedBelow , FanSpeedAbove):
+        if FanSpeedBelow % 25:
+            raise ValueError("Speed must be a multiple of 25")
+        if FanSpeedAbove % 25:
+            raise ValueError("Speed must be a multiple of 25")            
+        self._writeUUID(CHARACTERISTIC_TEMP_HEAT_DISTRIBUTOR, pack('<BHH', TemperatureLimit, FanSpeedBelow, FanSpeedAbove ))
+
     def setBoostMode(self, on, speed, seconds):
         if speed % 25:
             raise ValueError("Speed must be a multiple of 25")
