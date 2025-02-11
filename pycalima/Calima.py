@@ -174,6 +174,11 @@ class Calima:
     def getFactorySettingsChanged(self):
         return unpack('<?', self._readUUID(CHARACTERISTIC_FACTORY_SETTINGS_CHANGED))
 
+    def setMode(self, mode):
+        if mode > 4 or mode < 0:
+            raise ValueError("Mode must be between 0-4")
+        self._writeUUID(CHARACTERISTIC_MODE, pack('<B', mode))
+
     def getMode(self):
         v = unpack('<B', self._readUUID(CHARACTERISTIC_MODE))
         if v[0] == 0:
